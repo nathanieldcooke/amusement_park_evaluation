@@ -10,8 +10,8 @@ block content
     div 
         p= park.description
     div 
-        a(href=`/park/edit/${park.id}`) Edit 
-        a(href=`/park/delete/${park.id}`) Delete 
+        a(href=`/park/edit/${park.id}`)= "Edit"
+        a(href=`/park/delete/${park.id}`)= "Delete"
         a(href=`/parks`) Return to List
 
 

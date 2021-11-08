@@ -1,0 +1,26 @@
+extends layout.pug 
+
+block content 
+    div 
+        p The following error(s) occurred:
+        ul 
+            each error in errors 
+                li= error
+    form(action="/park/add", method="post") 
+        input(type="hidden", name="_csrf" value=csrfToken)
+        label Park Name 
+        input(type="text", name="parkName" value=park.parkName)
+        label City
+        input(type="text", name="city" value=park.city)
+        label Province/State
+        input(type="text", name="provinceState" value=park.provinceState)
+        label Country
+        input(type="text", name="country" value=park.country)
+        label Opened
+        input(type="text" name="opened", value=park.opened, placeholder="ex: 2000-01-31") 
+        label Size
+        input(type="text", name="size" value=park.size)
+        label Description
+        textarea(name="description", cols="30", rows="10", value=park.description)
+        button(type="submit")= "Add Park" 
+        a(href="/") Cancel

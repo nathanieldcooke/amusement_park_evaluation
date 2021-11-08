@@ -1,12 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
-const { env } = require('./config')
+const cookeParser = require('cookie-parser');
+const { env } = require('./config');
 const routes = require('./routes');
 const app = express()
  
 app.set('view engine', 'pug')
 
 app.use(morgan('dev'))
+app.use(cookeParser())
+app.use(express.urlencoded({extended: false}))
 
 app.use(routes)
 
@@ -37,7 +40,6 @@ app.use((err, req, res, next) => {
 // Server Error
 app.use((err, req, res, next) => {
     res.status(err.status ? err.status : 500)
-    console.log('does it hit here?')
     res.render('error.pug', {
         title: 'Server Error', 
         message: env === 'production' ? null : err.message, 
