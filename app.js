@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const { env } = require('./config')
 const routes = require('./routes');
 const app = express()
  
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 
 // log errors
 app.use((err, req, res, next) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (env === 'development') {
         console.error(err)
     }
     next(err)
@@ -39,8 +40,8 @@ app.use((err, req, res, next) => {
     console.log('does it hit here?')
     res.render('error.pug', {
         title: 'Server Error', 
-        message: process.env.NODE_ENV === 'production' ? null : err.message, 
-        stack: process.env.NODE_ENV === 'production' ? null : err.stack
+        message: env === 'production' ? null : err.message, 
+        stack: env === 'production' ? null : err.stack
     })
 })
 
