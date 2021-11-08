@@ -10,6 +10,12 @@ router.get('/', (req, res) => {
     res.render('index', {title: 'Home'});
 })
 
+router.get('/park/:id(\\d+)', asyncHandler(async (req, res, next) => {
+    const parkId = Number(req.params.id)
+    const park = await db.Park.findByPk(parkId)
+    res.render('park-detail', {title: 'Park Detail', park})
+}))
+
 router.get('/parks', asyncHandler(async (req, res) => {
     console.log("DBz: ",db)
     const parks = await db.Park.findAll({
